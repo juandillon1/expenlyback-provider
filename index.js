@@ -16,6 +16,10 @@ const connection = new ConnectionManager();
 connection.connect(uri).then(async () => {
   const Expense = new ExpenseManager(connection.db);
 
+  app.get('/', async (req, res) => {
+    res.json({ msg: 'api alive' });
+  });
+
   app.get('/expenses/:month', async (req, res) => {
     try {
       const expenses = await Expense.getExpenses({ month: +req.params.month });
